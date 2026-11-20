@@ -130,7 +130,13 @@ button:focus-visible {
   line-height: 1;
 }
 .depth2-wrap {
-  display: none;
+  /* display: none; */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #b4adad;
+  z-index: 1;
 }
 
 .header-util {
