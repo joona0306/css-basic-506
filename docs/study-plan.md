@@ -10,7 +10,7 @@
 | 0 | 기본 세팅 | 초기화(reset), 웹 폰트, 상속 | 06, 07 | ✅ 완료 |
 | 1 | 헤더 배치 | 박스 모델, flex | 08-1 ~ 08-4 | 🔄 진행 중 |
 | 2 | 헤더 레이어 (언어 선택, 하위 메뉴) | position, z-index | 08-5 | 🔄 시작함 |
-| 3 | 히어로 영역 | 배경 이미지, 그라데이션 | 09 | ⬜ |
+| 3 | 히어로 영역 (사진 카드) | overflow, object-fit, position 복습 | 08, 09 | ⬜ |
 | 4 | 빠른 메뉴, 카드 목록 | flex-wrap, gap, 이미지 크기 맞추기 | 08, 09 | ⬜ |
 | 5 | 메뉴/카드의 상태 표현 | 고급 선택자, 가상 클래스·가상 요소 | 10 | ⬜ |
 | 6 | 움직임 | transition, transform, animation | 11 | ⬜ |
@@ -40,7 +40,7 @@
 - [x] `display: flex`로 세 덩어리를 가로로 나란히 놓기
 - [x] 메뉴 글자의 위아래 가운데를 맞추고, 메뉴를 누를 수 있는 영역을 헤더 높이만큼 채우기
 - [ ] 원본 사이트와 간격(gap, padding)을 개발자 도구로 비교해 맞추기 ⏸️ 보류 (8단계 마무리 때 함께)
-- [ ] 연습용 배경색(aquamarine, thistle 등)을 지우고 원본 색으로 바꾸기
+- [ ] 연습용 배경색(aquamarine, thistle 등)을 지우고 원본 색으로 바꾸기 ⏸️ 보류 (8단계 마무리 때 함께)
 
 스스로 확인하기
 - [ ] **flex container**(부모)와 **flex item**(자식)이 각각 어떤 요소인지 짚을 수 있다.
@@ -53,15 +53,15 @@
 
 ## 2단계: 헤더 레이어 — position 🔄
 
-**목표**: 언어 선택 목록, 하위 메뉴(depth2)처럼 **다른 요소 위에 떠 있는 상자** 만들기
+**목표**: 언어 선택 목록, 하위 메뉴(depth2)처럼 **문서 흐름에서 제외되어 다른 요소 위에 겹쳐 배치되는 상자** 만들기
 
 체크리스트
 - [x] `.language-layer`에 `position: absolute` 적용해 보기
-- [ ] `relative`를 **어느 요소에** 줘야 레이어 위치의 기준이 되는지 실험하기
-      (지금 CSS에 주석 처리된 `position: relative`들을 하나씩 켜 보고 차이 관찰하기) ⏭️ 건너뜀
+- [ ] `relative`를 **어느 요소에** 줘야 레이어 위치의 기준이 되는지 실험하기 ⏭️ 건너뜀
+      (지금 CSS에 주석 처리된 `position: relative`들을 하나씩 켜 보고 차이 관찰하기)
 - [x] 하위 메뉴(`.depth2-wrap`)를 헤더 바로 아래, 화면 전체 너비로 펼치기 (지금은 `display: none`)
 - [x] 레이어가 다른 콘텐츠에 가려지면 `z-index`로 해결하기
-- [ ] `README.md`의 비어 있는 **08-5 position** 항목 정리하기
+- [x] `README.md`의 비어 있는 **08-5 position** 항목 정리하기
 
 스스로 확인하기
 - [ ] `static` / `relative` / `absolute` / `fixed` / `sticky`의 차이를 한 줄씩 말할 수 있다.
@@ -71,20 +71,27 @@
 
 ---
 
-## 3단계: 히어로 영역 — 배경과 그라데이션
+## 3단계: 히어로 영역 — 사진 카드
 
-**목표**: 큰 배경 이미지 위에 제목과 이미지 카드를 겹쳐 놓기 (슬라이드 동작은 하지 않고 첫 장면만)
+> ⚠️ 원본 사이트의 히어로가 바뀌었어요. **지금 사이트 기준**으로 다시 만들어요. 측정값은 `docs/hero-reference.md`에 있어요.
+
+**목표**: 큰 사진 카드 위에 제목·부제목·버튼을 겹쳐 놓고, 양옆 카드가 조금씩 보이게 하기 (슬라이드 동작은 하지 않고 정지 화면만)
 
 체크리스트
-- [ ] `background-image`, `background-size`, `background-position`으로 배경 깔기
-- [ ] 글자가 잘 보이도록 그라데이션을 겹쳐 보기
-- [ ] 이미지가 찌그러지지 않게 크기 맞추기
+- [x] 예전 히어로 HTML을 지금 사이트 구조로 다시 작성하기 — Claude 작성
+- [x] 히어로 HTML에 케밥 케이스 클래스 이름 붙이기
+- [ ] 카드 1장 만들기: 크기, 둥근 모서리, `overflow: hidden`
+- [ ] 사진이 찌그러지지 않게 `object-fit`으로 채우기
+- [ ] 글자 묶음을 카드 왼쪽 아래에 `position: absolute`로 배치하기
+- [ ] 제목·부제목·"자세히 보기" 꾸미기 (반투명 rgba 색)
+- [ ] 이전·다음 원형 버튼, "1 / 10" 표시 배치하기
+- [ ] 카드 3장을 가로로 놓고, 양옆 카드는 일부만 보이게 자르기 ⏸️ 보류 (Swiper 설정으로 처리)
 
 스스로 확인하기
-- [ ] `<img>` 태그로 넣는 이미지와 `background-image`의 차이(언제 무엇을 쓰는지)를 말할 수 있다.
-- [ ] `background-size`의 `cover`와 `contain`의 차이를 설명할 수 있다.
+- [ ] `overflow: hidden`이 둥근 모서리에서 하는 역할을 설명할 수 있다.
+- [ ] `object-fit`의 `cover`와 `contain`의 차이를 설명할 수 있다.
 
-📖 [background-image](https://developer.mozilla.org/ko/docs/Web/CSS/background-image) · [background-size](https://developer.mozilla.org/ko/docs/Web/CSS/background-size) · [linear-gradient()](https://developer.mozilla.org/ko/docs/Web/CSS/gradient/linear-gradient) · [object-fit](https://developer.mozilla.org/ko/docs/Web/CSS/object-fit)
+📖 [overflow](https://developer.mozilla.org/ko/docs/Web/CSS/overflow) · [object-fit](https://developer.mozilla.org/ko/docs/Web/CSS/object-fit) · [border-radius](https://developer.mozilla.org/ko/docs/Web/CSS/border-radius) · [position](https://developer.mozilla.org/ko/docs/Web/CSS/position)
 
 ---
 

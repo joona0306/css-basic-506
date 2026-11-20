@@ -691,6 +691,55 @@ div {
 
 ## 08-5. 웹 요소 위치 지정 position
 
+- 요소를 원하는 위치에 배치하는 속성
+- `top`, `right`, `bottom`, `left`와 함께 사용
+
+### position 값
+
+- static: 기본값, 문서 흐름대로 배치 (top/left 등이 적용되지 않음)
+- **relative**: 원래 자리를 기준점으로 top/left 등의 값만큼 떨어진 곳에 배치, 원래 자리는 그대로 차지함
+- **absolute**: 문서 흐름에서 제외되어 자리를 차지하지 않음(다른 요소 배치에 영향 X), 기준 상자(relative가 적혀 있는 상위요소)로부터 top/left 등의 값만큼 떨어진 곳에 배치
+- fixed: 화면(브라우저 창)을 기준으로 고정, 스크롤해도 그 자리에 있음
+- sticky: 평소엔 제자리에 있다가 스크롤로 정해진 위치에 닿으면 달라붙음
+
+### top, right, bottom, left
+
+- 기준점에서 얼마나 떨어질지 지정
+- px, %, auto 등
+- `top: 100%` → 기준 상자 높이만큼 아래 = 기준 상자의 **바로 아래**
+
+### absolute의 기준 상자 찾기
+
+- 부모 → 그 부모 → ... 순서로 올라가면서
+- **position이 static이 아닌 가장 가까운 조상**을 기준으로 삼음
+- 그런 조상이 하나도 없으면 문서 전체(최상위)가 기준
+- 그래서 보통 기준이 될 부모에 `position: relative`를 줌
+
+### z-index
+
+- 요소가 겹칠 때 쌓이는 순서
+- 숫자가 클수록 위에 표시
+- position이 static이 아닌 요소에 적용 (flex 자식 요소에도 적용됨)
+
+### 클론코딩 예시: 하위 메뉴를 헤더 바로 아래 전체 너비로
+
+```css
+.header {
+  position: relative; /* 기준 상자 */
+  height: 90px;
+}
+
+.depth2-wrap {
+  position: absolute;
+  top: 100%; /* 헤더 바로 아래 */
+  left: 0;
+  width: 100%; /* 헤더 전체 너비 */
+  z-index: 1; /* 메인 콘텐츠보다 위 */
+}
+```
+
+- `.header`와 `.depth2-wrap` 사이의 상자(`.inner`, `.nav`, `li` 등)에 relative를 주면 기준이 바뀌니 주의!
+
 # 09. 이미지, 그라데이션, 배경
 
 # 10. CSS 고급 선택자
