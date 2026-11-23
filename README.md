@@ -747,3 +747,90 @@ div {
 # 11. 트랜지션, 애니메이션
 
 # 12. 반응형, 미디어 쿼리
+
+# 부록 A. CSS 변수 (교재 범위 밖)
+
+## A-1. CSS 변수란?
+
+- 반복되는 값(색, 글자 크기, 모서리, 간격 등)에 **이름을 붙여 두고** 꺼내 쓰는 것
+- 정식 이름은 **사용자 지정 속성 (custom properties)**
+- 이렇게 이름 붙인 디자인 값을 **디자인 토큰**이라고 부름
+- 비유: 전화번호(`#fff`)를 외우지 않고 연락처 이름(`--color-white`)으로 저장해 두기
+
+```css
+/* 만들기: 이름은 반드시 -- 로 시작 */
+선택자 {
+  --변수이름: 값;
+}
+
+/* 꺼내 쓰기: var( ) 로 감싸기 */
+선택자 {
+  속성: var(--변수이름);
+}
+```
+
+## A-2. 전역 변수와 지역 변수
+
+- CSS 변수는 **만든 요소와 그 자손**만 쓸 수 있음 (일반 속성처럼 **상속**됨)
+
+| 어디에 만드나                     | 누가 쓸 수 있나        | 이름      |
+| --------------------------------- | ---------------------- | --------- |
+| `:root` (= 문서 맨 꼭대기 `html`) | 페이지의 **모든 요소** | 전역 토큰 |
+| `.sw-hero` 같은 영역 선택자       | 그 영역과 안쪽 요소만  | 지역 변수 |
+
+- 나누는 기준
+  - **여러 영역**에서 쓰는 값, 디자인 **규칙** → 전역 (`css/tokens.css`)
+    - 예: 흰색, 14px 글자, 카드 모서리 12px
+  - **한 영역**에서만 쓰는 치수 → 지역 (그 영역 선택자 안)
+    - 예: 히어로 카드 940 × 626
+
+```css
+/* tokens.css — 전역 토큰 */
+:root {
+  --color-white: #fff;
+  --radius-lg: 12px;
+}
+
+/* 지역 변수 예시 */
+.card-area {
+  --card-w: 300px;
+}
+.card-area .card {
+  width: var(--card-w);
+  border-radius: var(--radius-lg);
+}
+```
+
+## A-3. 왜 쓰나? (하드코딩과 비교)
+
+- **하드코딩**: 값을 코드에 직접 쓰는 것 (예: `color: #fff;`)
+
+|              | 하드코딩 `#fff`                      | 변수 `var(--color-white)`                |
+| ------------ | ------------------------------------ | ---------------------------------------- |
+| 값을 바꿀 때 | 쓴 곳을 **전부** 찾아서 고침         | `tokens.css` **한 줄**만 고침            |
+| 읽을 때      | `rgba(0,0,0,.4)`가 왜 이 값인지 모름 | `--color-black-40` 이름으로 알 수 있음   |
+| 실수         | 곳곳에 비슷하지만 다른 값이 섞임     | 모두 같은 값                             |
+| 나중에       | -                                    | 다크 모드, JavaScript로 값 바꾸기가 쉬움 |
+
+## A-4. 주의할 점
+
+- **이름이 틀리면 조용히 무시됨**: 오류 없이 그 줄만 적용 안 됨 → 개발자 도구로 확인
+  - Styles 패널에서 `var(--이름)`에 마우스를 올리면 실제 값이 보임
+- **대신할 값(fallback)**: 변수가 없을 때 뒤의 값을 사용
+
+```css
+color: var(--color-point, #ff6600);
+```
+
+- **이름 규칙**: `--분류-역할` (케밥 케이스)
+  - 예: `--color-text`, `--fs-sm`, `--radius-lg`, `--space-4`
+  - 값(`--white-fff`)보다 **역할**로 지어야 값이 바뀌어도 이름이 어색하지 않음
+- 이 프로젝트에서는 `css/tokens.css`를 다른 CSS보다 **먼저** 연결함
+
+```html
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/tokens.css" />
+<link rel="stylesheet" href="css/clone-exercise.css" />
+```
+
+- 참고: [MDN CSS 변수 사용하기](https://developer.mozilla.org/ko/docs/Web/CSS/Using_CSS_custom_properties) · [var()](https://developer.mozilla.org/ko/docs/Web/CSS/var) · [:root](https://developer.mozilla.org/ko/docs/Web/CSS/:root)
