@@ -101,6 +101,27 @@ div.main_showcase_area            ← 히어로 전체
 | 마우스 올림 (5단계 `:hover`) | `background` | `#fff` |
 |  | 화살표 `stroke` | `#3D3D43` |
 
+## "1 / 10" 숫자와 일시정지 버튼
+
+출처 표시: **🟢 화면 측정**(브라우저에서 렌더링된 Computed 값) · **🟡 CSS 파일만 확인** · **⬜ 측정 필요**
+측정: 2026-11-24, 창 너비 1864px, `html` 글자 크기 10px
+
+| 요소 | 속성 | 값 | 출처 |
+| --- | --- | --- | --- |
+| 숫자 묶음 `.swiper-pagination` | 상자 크기 | 52.3 × 16 (너비는 **내용으로 정해짐**, 높이는 작성값 `1.6rem` = 16px) | 🟢 |
+|  | `display`, `gap` | flex, 8px | 🟢 (학생 코드와 같음 ✅) |
+|  | `font-size` / `line-height` / `font-weight` | 18px / 16px / 400 | 🟢 (학생 코드와 같음 ✅) |
+|  | `color` (`/` 글자) | rgba(255, 255, 255, 0.5) | 🟢 (학생 코드와 같음 ✅) |
+| 현재 숫자 `.swiper-pagination-current` | `color` | rgb(255, 255, 255) | 🟢 |
+| 전체 숫자 `.swiper-pagination-total` | `color` | rgba(255, 255, 255, 0.5) | 🟢 |
+| 일시정지 묶음 `.rolling` | 상자 크기, 위치 | 16 × 18.2 (높이는 **내용으로 정해짐**), absolute (right 48px · bottom 54px) | 🟢 (위치는 ⏸️ Swiper 배치와 함께) |
+| 아이콘 `.stop` | `display`, 크기 | flex, 16 × 16 | 🟢 |
+| 아이콘 모양 `rect` | `fill` | rgb(255, 255, 255) | 🟢 |
+| 재생 아이콘 `.play` | `display` | none | 🟢 |
+
+- 일시정지·재생 아이콘은 **선(stroke)이 아니라 면(fill)**으로 그린 그림이에요.
+- 원본은 멈춤 상태를 부모의 `active` 클래스로 바꿔요. 우리 프로젝트에서는 약속대로 `is-` 클래스를 써요. (JS 단계)
+
 ## 반복되는 값 → 토큰 후보
 
 | 값 | 쓰인 곳 | 토큰 (`css/tokens.css`) |
