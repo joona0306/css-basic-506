@@ -1,0 +1,167 @@
+{
+  "version": 1,
+  "started_at": "2026-11-25T09:16:00+09:00",
+  "updated_at": "2026-11-25T11:35:00+09:00",
+  "site": {
+    "url": "https://korean.visitkorea.or.kr/main/main.do",
+    "name": "대한민국 구석구석 (메인 페이지)",
+    "checked_with": "chrome",
+    "terms": "이용약관·저작권 정책 확인 전 (사진·글·로고는 원본 것을 가져오지 않음)",
+    "pages": [],
+    "flows": [],
+    "map": [
+      { "area": "머리글", "layout": "가로 flex (로고 · 메뉴 · 유틸)", "moving": "하위 메뉴, 언어 선택", "status": "덜 됨", "gaps": ["간격(gap·padding) 원본 비교 보류", "연습용 배경색 남음"] },
+      { "area": "히어로", "layout": "사진 카드 슬라이드", "moving": "Swiper 슬라이드", "status": "덜 됨", "gaps": ["카드 3장 가로 배치 보류(Swiper)"] },
+      { "area": "빠른 메뉴", "layout": "아이콘 9개 가로", "moving": "Swiper", "status": "덜 됨", "gaps": ["원본과 나란히 비교 전"] },
+      { "area": "AI 기사 요약", "layout": "제목 줄 + 카드 가로 슬라이드", "moving": "Swiper, 안내 말풍선", "status": "덜 됨", "gaps": ["카드 요약글(p)·바로가기 없음 → W12-1", "슬라이드 아래 안쪽 여백(위 37 · 아래 86)·이전/다음 버튼·점 페이지 표시 없음 (버튼·점 위치는 Swiper와 함께)", "카드 사이 24px·가운데 정렬·flex-shrink 0은 Swiper 연결 때"] },
+      { "area": "푸터", "layout": "확인 전", "moving": "", "status": "안 함", "gaps": [] }
+    ]
+  },
+  "diagnosis": "flex·position·CSS 변수·transition 맛보기 사용, flex-wrap·@media·clamp·@keyframes 없음 → W11 시작 (학생 계획 4단계와 맞춤)",
+  "range": { "from": 11, "to": 21 },
+  "workspace": ".",
+  "current": { "unit": 12, "mission": "W12-1" },
+  "weak": ["Fixed 크기는 flex: 0 0 값 (width만 쓰면 줄어들 수 있음)", "line-height 상속 (따로 안 쓰면 부모 값을 물려받음)"],
+  "reviews": [],
+  "deploys": [],
+  "units": [
+    {
+      "no": 11,
+      "title": "W11. Flexbox ② 늘이기·줄이기·줄바꿈",
+      "learned": true,
+      "missions": [
+        {
+          "id": "W11-1",
+          "title": "AI 영역 배경과 제목 줄 (Hug·Fixed)",
+          "area": "AI 기사 요약",
+          "criteria": [
+            ".ai-digest: 위 안쪽 여백 87px (원본 측정)",
+            ".ai-digest 배경 두 겹: assets/images/bg_ai_digest.png 반복 없이 위치 calc(50% + 290px) 0 + linear-gradient(180deg, #E9F0FE 0%, rgba(242, 246, 255, 0.6) 123.06%) (원본 측정)",
+            ".title-wrap: 너비 1280px(var(--layout-max)) 가운데, display: flex, 세로 가운데, gap 12px (원본 측정)",
+            "h3: 26px · 줄 간격 130% · 자간 -0.02em · 굵기 400 · #29292c, strong 굵기 800 — 토큰 사용 (원본 측정)",
+            "h3는 Hug(flex 설정 없음), 정보 버튼은 Fixed: flex: 0 0 20px + 높이 20px, 안의 svg가 버튼 크기에 맞음 (원본 측정 20×20)",
+            "원본 닮음: 1280px 이상 화면에서 제목 줄이 가운데 1280px 상자 왼쪽에서 시작하고, 버튼이 제목 바로 오른쪽 12px 자리에 있음"
+          ],
+          "status": "done",
+          "optional": false,
+          "done_at": "2026-11-25",
+          "hints": 0,
+          "attempts": 2,
+          "answer_seen": false,
+          "feedback": ["시도 1 (2026-11-25): 배경·여백·제목 글자·간격 원본과 같음. 보완: 버튼 Fixed를 width 대신 flex: 0 0 20px로, 설명 말풍선이 화면에 보여 제목 줄 높이 128px(원본 33.8px)", "시도 2 (2026-11-25): 모두 통과. 버튼 flex-shrink 0, 제목 줄 높이 33.8px로 원본과 같음"]
+        },
+        {
+          "id": "W11-2",
+          "title": "AI 카드 칸 고정 크기와 카드 상자",
+          "area": "AI 기사 요약",
+          "criteria": [
+            ".sw-ai .swiper-wrapper: display: flex (원본 Swiper CSS와 같음)",
+            ".sw-ai .swiper-slide: Fixed 410px 너비 — flex: 0 0 410px, 높이 376px (원본 측정·원본 CSS 41rem·37.6rem)",
+            ".cont: 높이 100%, 안쪽 여백 위 52px · 좌우 36px · 아래 0 (원본 측정)",
+            ".cont: 흰 배경, 모서리 20px, 그림자 0 0 20px #D0DBF0, position: relative, overflow: hidden (원본 측정)",
+            "흰색은 토큰(--color-white), 반복 값은 토큰 또는 영역 변수 사용",
+            "원본 닮음: 1864px 창에서 카드 칸 410 × 376, 카드 3장이 가로 한 줄로 나란히 (카드 사이 간격 24px는 Swiper 설정이라 제외)"
+          ],
+          "status": "done",
+          "optional": false,
+          "done_at": "2026-11-25",
+          "hints": 0,
+          "attempts": 1,
+          "answer_seen": false,
+          "feedback": ["시도 1 (2026-11-25): 카드 칸 410×376·카드 상자 값 원본과 같음. 보완: .swiper-slide를 width 대신 flex: 0 0 410px로 (지금은 flex-shrink 1, 사진 원래 크기 덕분에 우연히 안 줄어듦)", "학생 결정: 기준 2(슬라이드 flex-shrink 0)는 Swiper CSS가 정하는 값이라 Swiper 연결 때 확인 — 보류로 두고 완료 처리"]
+        },
+        {
+          "id": "W11-3",
+          "title": "AI 카드 이름표·제목 줄·동그란 사진",
+          "area": "AI 기사 요약",
+          "criteria": [
+            "이름표 em: position absolute, 카드 왼쪽 36px · 위 0, flex로 세로 가운데, gap 4px, 좌우 안쪽 여백 8px, 높이 32px (원본 측정)",
+            "이름표 글자: 14px · 굵기 700 · 흰색 · 기울임 없음(font-style: normal), 배경 #236CF6, 모서리 아래 두 곳만 4px (원본 측정)",
+            "이름표 아이콘 span: Fixed flex: 0 0 16px + 높이 16px (원본 측정 16×16)",
+            "제목 칸 .tit: flex로 세로 가운데, 높이 52px, 왼쪽 바깥 여백 68px (원본 측정)",
+            "제목 strong: 20px · 줄 간격 26px · 굵기 600 · 자간 -0.05em · #236CF6, 2줄 넘으면 말줄임(-webkit-line-clamp: 2) (원본 측정)",
+            "동그란 사진 .thumbs: position absolute, 왼쪽 36px · 위 52px, 52×52, 원형, overflow hidden / img 100%·100%·object-fit: cover (원본 측정)",
+            "#236CF6은 두 곳에서 반복 → 토큰으로 (tokens.css에 추가)",
+            "원본 닮음: 카드 왼쪽 위 기준 이름표(36, 0) · 사진(36, 52) · 제목 칸(104, 52) 자리, 3번째 카드 긴 제목이 2줄에서 말줄임"
+          ],
+          "status": "done",
+          "optional": false,
+          "done_at": "2026-11-25",
+          "hints": 0,
+          "attempts": 2,
+          "answer_seen": false,
+          "feedback": ["시도 1 (2026-11-25): 이름표·아이콘 Fixed·제목 칸·사진·말줄임 통과. 보완: 제목 strong 줄 간격 26px 빠짐(상속 32px → 글자 높이 64, 위로 6px 삐져나옴), #236CF6 토큰 미추가", "시도 2 (2026-11-25): 모두 통과. --lh-title(1.3)로 26px, --color-primary-50 토큰 추가해 두 곳에 사용"]
+        }
+      ]
+    },
+    { "no": 12, "title": "W12. position", "learned": true, "missions": [
+      {
+        "id": "W12-1",
+        "title": "AI 카드 요약글과 바로가기 (bottom 기준 배치)",
+        "area": "AI 기사 요약",
+        "criteria": [
+          "요약 p: 위 바깥 여백 20px, 위 안쪽 여백 17px, 윗줄 1px solid #E9E9F4 (원본 측정)",
+          "요약 p 글자: 16px · 줄 간격 24px · 자간 -0.02em · #58585F, 토큰 사용 (원본 측정 -0.32px → -0.02em)",
+          "요약 p: 6줄 넘으면 말줄임(-webkit-line-clamp: 6), 글자 칸 높이 144px (원본 측정·원본 CSS 14.4rem)",
+          "바로가기 a: position absolute, 카드 왼쪽 36px · 아래 36px (bottom으로) (원본 측정)",
+          "바로가기 a: flex 세로 가운데, 높이 32px, 좌우 안쪽 여백 12px, 14px · 굵기 700 · #29292c, 배경 #F3F3FA, 알약 모양 모서리 (원본 측정)",
+          "원본 닮음: 카드 왼쪽 위 기준 요약 p (36, 124)·높이 162, 바로가기는 카드 아래에서 36px 위·왼쪽 36px"
+        ],
+        "status": "doing",
+        "optional": false,
+        "done_at": null,
+        "hints": 0,
+        "attempts": 0,
+        "answer_seen": false,
+        "feedback": []
+      },
+      { "id": "W12-2", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W12-3", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] }
+    ] },
+    { "no": 13, "title": "W13. Grid", "learned": false, "missions": [
+      { "id": "W13-1", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W13-2", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W13-3", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] }
+    ] },
+    { "no": 14, "title": "W14. 반응형 ① 미디어쿼리·모바일 우선", "learned": false, "missions": [
+      { "id": "W14-1", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W14-2", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W14-3", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] }
+    ] },
+    { "no": 15, "title": "W15. 반응형 ② 유연한 이미지·단위·clamp", "learned": false, "missions": [
+      { "id": "W15-1", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W15-2", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W15-3", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] }
+    ] },
+    { "no": 16, "title": "W16. transition·transform·animation", "learned": false, "missions": [
+      { "id": "W16-1", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W16-2", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W16-3", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] }
+    ] },
+    { "no": 17, "title": "W17. CSS 변수와 코드 정리", "learned": false, "missions": [
+      { "id": "W17-1", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W17-2", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W17-3", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] }
+    ] },
+    { "no": 18, "title": "W18. 퍼블리싱 실습 ① 시안 읽기·토큰·마크업", "learned": false, "missions": [
+      { "id": "W18-1", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W18-2", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W18-3", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] }
+    ] },
+    { "no": 19, "title": "W19. 퍼블리싱 실습 ② 배치와 반응형", "learned": false, "missions": [
+      { "id": "W19-1", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W19-2", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W19-3", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] }
+    ] },
+    { "no": 20, "title": "W20. 퍼블리싱 실습 ③ 움직임·접근성·품질 점검", "learned": false, "missions": [
+      { "id": "W20-1", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W20-2", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W20-3", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] }
+    ] },
+    { "no": 21, "title": "W21. 웹 기초 점검", "learned": false, "missions": [
+      { "id": "W21-1", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W21-2", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
+      { "id": "W21-3", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] }
+    ] }
+  ]
+}
