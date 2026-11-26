@@ -1,7 +1,7 @@
 {
   "version": 1,
   "started_at": "2026-11-25T09:16:00+09:00",
-  "updated_at": "2026-11-25T11:35:00+09:00",
+  "updated_at": "2026-11-26T11:30:00+09:00",
   "site": {
     "url": "https://korean.visitkorea.or.kr/main/main.do",
     "name": "대한민국 구석구석 (메인 페이지)",
@@ -20,9 +20,9 @@
   "diagnosis": "flex·position·CSS 변수·transition 맛보기 사용, flex-wrap·@media·clamp·@keyframes 없음 → W11 시작 (학생 계획 4단계와 맞춤)",
   "range": { "from": 11, "to": 21 },
   "workspace": ".",
-  "current": { "unit": 12, "mission": "W12-1" },
-  "weak": ["Fixed 크기는 flex: 0 0 값 (width만 쓰면 줄어들 수 있음)", "line-height 상속 (따로 안 쓰면 부모 값을 물려받음)"],
-  "reviews": [],
+  "current": { "unit": 12, "mission": "W12-3" },
+  "weak": ["원본 값 그대로 쓰기 (보이는 차이는 값이 아니라 원인을 찾아 고치기)"],
+  "reviews": [{ "date": "2026-11-26", "topics": ["Fixed 크기 flex: 0 0", "line-height 상속(숫자 비율 vs px)"], "score": "2/2" }],
   "deploys": [],
   "units": [
     {
@@ -107,6 +107,47 @@
           "바로가기 a: flex 세로 가운데, 높이 32px, 좌우 안쪽 여백 12px, 14px · 굵기 700 · #29292c, 배경 #F3F3FA, 알약 모양 모서리 (원본 측정)",
           "원본 닮음: 카드 왼쪽 위 기준 요약 p (36, 124)·높이 162, 바로가기는 카드 아래에서 36px 위·왼쪽 36px"
         ],
+        "status": "done",
+        "optional": false,
+        "done_at": "2026-11-26",
+        "hints": 0,
+        "attempts": 2,
+        "answer_seen": false,
+        "feedback": ["시도 1 (2026-11-26): 요약 p 전부 통과(content-box로 162, 줄 간격 24), 바로가기 위치 bottom 36·폭 72.4 원본과 같음. 보완: 바로가기 display flex+세로 가운데 대신 span line-height로 맞춤, font-weight 500(원본 700) — 굵어 보이는 건 글꼴 파일 차이(Variable vs 정적)", "시도 2 (2026-11-26): flex + align-items center로 위아래 5.5px씩 가운데. 학생 결정: 굵기 500은 글꼴 파일 문제를 알고 유지 — 글꼴 연결 정리 때 700으로 (보류)"]
+      },
+      {
+        "id": "W12-2",
+        "title": "머리글을 화면 위에 고정 (fixed · z-index)",
+        "area": "머리글",
+        "criteria": [
+          ".header: position fixed, 위 0 · 왼쪽 0 · 오른쪽 0 (원본 측정)",
+          ".header: z-index 110 — --z-header 토큰 값을 원본 측정값으로 (지금 토큰 100)",
+          ".header 배경 흰색(--color-white), 높이 90px(--header-height) (원본 측정)",
+          "본문 첫 묶음에 위 바깥 여백 90px(헤더 높이만큼, --header-height) — 원본 .main_cont_wrap margin-top 90px (원본 측정)",
+          "히어로 영역(.hero-sec)에 위 바깥 여백 162px — 원본 .main_showcase_area margin-top 16.2rem(162px). 부모 90px와 마진 상쇄돼 히어로 시작 위치 162px (원본 측정, 2026-11-26 추가)",
+          "하위 메뉴·언어 선택 레이어가 고정 뒤에도 헤더 아래 같은 자리에 열림",
+          "원본 닮음: 스크롤해도 헤더가 화면 맨 위 0에 그대로, 히어로·AI 카드가 헤더 아래로 지나감(헤더가 위에 보임), 처음 화면에서 히어로가 헤더에 가려지지 않음"
+        ],
+        "status": "done",
+        "optional": false,
+        "done_at": "2026-11-26",
+        "hints": 0,
+        "attempts": 3,
+        "answer_seen": false,
+        "feedback": ["시도 1 (2026-11-26): fixed·위치·스크롤 고정·히어로 162(마진 상쇄 이해)·레이어 자리·그림자 원본과 같음. .main 90px는 지웠지만 상쇄로 화면 같음(통과). 보완: z-index 110·높이 90·흰색을 숫자로 씀 — --z-header 토큰을 110으로 고치고 --z-header·--header-height·--color-white 사용", "시도 2: --z-header 110·--color-white 통과, 높이 90px 남음", "시도 3: --header-height 사용, 모두 통과. 학생 메모: 헤더 높이·z-index를 꼭 토큰으로 둘지 고민 중"]
+      },
+      {
+        "id": "W12-3",
+        "title": "AI 슬라이드 이전·다음 버튼 (absolute 안의 absolute)",
+        "area": "AI 기사 요약",
+        "criteria": [
+          ".sw-ai: 위 안쪽 여백 37px · 아래 86px (원본 측정·작성값 3.7rem 8.6rem), position relative (원본은 Swiper CSS가 줌)",
+          ".page-btn: position absolute, 너비 1280px, 위 226px, 가운데 (원본 작성값 left 50% + transform translateX(-50%)), z-index 5 (원본 측정)",
+          ".swiper-button-prev / next: position absolute, 위 0, 왼쪽 -19px / 오른쪽 -19px, 40×40 (원본 측정)",
+          "버튼 button: 40×40 원형, 흰 배경, 1px solid #949499, flex 가운데 정렬 (원본 측정)",
+          "아이콘: 16×16 칸, svg 14×14, 선 #3D3D43 · 2.5px(--stroke-slide-nav), 이전 rotate(90deg) / 다음 rotate(-90deg) (원본 측정)",
+          "원본 닮음: 슬라이드(.sw-ai) 왼쪽 위 기준 버튼 묶음 위 226px, 이전 버튼이 1280 상자 왼쪽 끝에서 19px 바깥, 다음 버튼이 오른쪽 끝에서 19px 바깥, 화살표 방향 ← →"
+        ],
         "status": "doing",
         "optional": false,
         "done_at": null,
@@ -114,9 +155,7 @@
         "attempts": 0,
         "answer_seen": false,
         "feedback": []
-      },
-      { "id": "W12-2", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
-      { "id": "W12-3", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] }
+      }
     ] },
     { "no": 13, "title": "W13. Grid", "learned": false, "missions": [
       { "id": "W13-1", "title": "미정", "area": "", "criteria": [], "status": "todo", "optional": false, "done_at": null, "hints": 0, "attempts": 0, "answer_seen": false, "feedback": [] },
